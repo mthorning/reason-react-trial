@@ -2,8 +2,8 @@ let str = React.string;
 
 module ListItem = {
   [@react.component]
-  let make = (~item, ~removeItem) => {
-    let handleClick = _e => removeItem(item);
+  let make = (~item, ~dispatch) => {
+    let handleClick = _e => dispatch(AppState.RemoveItem(item));
     <li key=item>
       item->str
       <button onClick=handleClick> "-"->str </button>
@@ -12,15 +12,15 @@ module ListItem = {
 };
 
 [@react.component]
-let make = (~items, ~removeItem) =>
-  <ul>
-    {
-      if (List.length(items) > 0) {
-        List.map(item => <ListItem item removeItem />, items)
-        ->Array.of_list
-        ->React.array;
-      } else {
-        ReasonReact.null;
-      }
-    }
-  </ul>;
+let make = (~items, ~dispatch) => {
+  let itemList =
+    List.map(item => <ListItem item dispatch />, items)
+    ->Array.of_list
+    ->React.array;
+
+  if (List.length(items) > 0) {
+    <ul> itemList </ul>;
+  } else {
+    ReasonReact.null;
+  };
+};

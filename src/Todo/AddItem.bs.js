@@ -1,5 +1,6 @@
 'use strict';
 
+var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 
@@ -8,7 +9,7 @@ function str(prim) {
 }
 
 function AddItem(Props) {
-  var addItem = Props.addItem;
+  var dispatch = Props.dispatch;
   var match = React.useState((function () {
           return "";
         }));
@@ -18,7 +19,7 @@ function AddItem(Props) {
     return Curry._1(setInputValue, $$event.target.value);
   };
   var handleClick = function (_event) {
-    Curry._1(addItem, inputValue);
+    Curry._1(dispatch, /* AddItem */Block.__(0, [inputValue]));
     return Curry._1(setInputValue, (function (param) {
                   return "";
                 }));
